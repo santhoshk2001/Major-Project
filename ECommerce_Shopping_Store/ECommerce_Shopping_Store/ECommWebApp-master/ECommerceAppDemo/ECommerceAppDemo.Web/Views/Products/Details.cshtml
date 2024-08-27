@@ -1,0 +1,78 @@
+﻿@{ ViewBag.Title = "Details"; }
+
+@using Newtonsoft.Json.Linq;
+
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+@if (ViewBag.ProductDetails != null)
+{
+    var product = ViewBag.ProductDetails as JObject;
+
+    if (product != null)
+    {
+<div class="product-details-container">
+    <div class="product-image">
+        <img src="@product["path_to_image"].ToString()" alt="Product Image" />
+    </div>
+    <div class="product-info">
+        @foreach (var prop in product)
+        {
+            if (prop.Value != null && prop.Value.Type != JTokenType.Null && prop.Key != "PID" && prop.Key != "path_to_image")
+            {
+<div class="product-property">
+    <span class="property-name">@prop.Key:</span>
+    <span class="property-value">@prop.Value</span>
+</div>}
+                    }
+
+        <button id="addToCartBtn" class="add-to-cart-btn" data-pid="@product["PID"]">Add to Cart</button>
+        <div id="cartStatus" class="added-to-cart" style="display:none;">Added to Cart</div>
+    </div>
+</div> }
+                else
+                {
+<p>Invalid product data format.</p> }
+            }
+            else
+            {
+<p>Product details not found.</p>}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#addToCartBtn').click(function () {
+            // Disable the button and show the "Added to Cart" status
+           
+            $('#cartStatus').show();
+
+            // Get the PID from the button's data attribute
+            var pid = $(this).data('pid');
+
+            // Get the UserId from session
+            var userId = '@Session["UserId"]';
+
+            if (userId === '') {
+                alert('Please log in to add items to your cart.');
+                return;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: 'https://localhost:44368/api/cart/add',
+                data: JSON.stringify({ PID: pid, UserId: userId }),
+                contentType: 'application/json',
+                success: function (response) {
+                    alert('Product successfully added to cart!');
+                },
+                error: function (xhr, status, error) {
+                    console.log("XHR Response:", xhr);
+                    console.log("Status:", status);
+                    console.log("Error:", error);
+                    alert('Error adding product to cart: ' + (xhr.responseText || status || error));
+                    $('#addToCartBtn').prop('disabled', false);
+                    $('#cartStatus').hide();
+                }
+            });
+        });
+    });
+</script>

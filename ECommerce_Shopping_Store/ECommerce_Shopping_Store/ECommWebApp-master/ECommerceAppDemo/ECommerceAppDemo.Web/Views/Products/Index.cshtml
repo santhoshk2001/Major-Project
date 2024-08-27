@@ -1,0 +1,205 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "CyberShopee";
+}
+
+@if (string.IsNullOrEmpty(Request.QueryString["categoryName"]))
+{
+    <div style="width: 100%; height: 100vh; background-image: url('https://st.depositphotos.com/1001877/3814/i/450/depositphotos_38143799-stock-photo-e-commerce-shopping-cart-with.jpg'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: left; padding-left: 50px; ">
+        <div style="color: white; max-width: 600px; background-color: rgba(0, 0, 0, 0.5); padding: 20px; border-radius: 10px;">
+            <h1 style="font-size: 3rem; margin-bottom: 20px;">A Shop That Has All the Electronic Essentials</h1>
+            <p style="font-size: 1.2rem;">Your one-stop destination for all your electronic needs, offering a wide range of products from top brands.</p>
+        </div>
+    </div>
+
+    <div style="padding: 80px 20px; text-align: center;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+            <div style="width: 100%; max-width: 500px; margin: 0 auto;">
+                <img src="https://img.freepik.com/premium-photo/e-commerce-online-shopping-digital-marketing-internet-business-technology-concept-virtual-screen_55997-2117.jpg" alt="About Us" style="width: 100%; border-radius: 10px;">
+            </div>
+            <div style="max-width: 600px; margin: 0 auto;">
+                <h2 style="font-size: 2.5rem; margin-bottom: 20px;">About Us</h2>
+                <p style="font-size: 1.2rem; line-height: 1.5;">We are a leading electronics retailer, committed to providing our customers with the best shopping experience. Our wide selection of products includes the latest gadgets and essential electronics, all backed by our customer-first approach. Our mission is to bring you the best in technology at unbeatable prices.</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="padding: 80px 20px; text-align: center;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 40px;">Customer Reviews</h2>
+        <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+            <div style="width: 300px; background-color: #f9f9f9; padding: 20px; margin: 10px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center;">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwLFyklTyf5ygXXYWOT7Y9PGAhrroaErtDcA&s" alt="Customer 1" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 20px;">
+                <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 10px;">"Excellent service and a fantastic range of products. I found exactly what I was looking for!"</p>
+                <p>- Jane Doe</p>
+            </div>
+            <div style="width: 300px; background-color: #f9f9f9; padding: 20px; margin: 10px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center;">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTseVnnZc9mLZHJ_W2NRzyUezpo15sr1ph28Q&s" alt="Customer 2" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 20px;">
+                <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 10px;">"Quick delivery and great prices. I highly recommend this shop to anyone looking for quality electronics."</p>
+                <p>- John Smith</p>
+            </div>
+            <div style="width: 300px; background-color: #f9f9f9; padding: 20px; margin: 10px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center;">
+                <img src="https://i1.rgstatic.net/ii/profile.image/1114833734909954-1642808483420_Q512/Aman-Ullah-10.jpg" alt="Customer 3" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 20px;">
+                <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 10px;">"The customer support was top-notch. They helped me choose the perfect product for my needs."</p>
+                <p>- Ajax Johnson</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="padding: 80px 20px; text-align: center;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 40px;">Contact Us</h2>
+        <div style="display: flex; justify-content: space-between; align-items: stretch; flex-wrap: wrap;">
+            <div style="width: 100%; max-width: 48%; height: 400px; border-radius: 10px; overflow: hidden;">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3169.831739751916!2d-122.08424968469291!3d37.42206597982378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fba2b31b5b18f%3A0x4e1545c1f9c4e42c!2sGoogleplex!5e0!3m2!1sen!2sus!4v1615177245273!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div style="width: 100%; max-width: 48%;">
+                <form method="post" action="/Contact/Submit" style="display: flex; flex-direction: column;">
+                    <div style="margin-bottom: 20px;">
+                        <label for="name" style="font-weight: bold; margin-bottom: 5px;">Name</label>
+                        <input type="text" id="name" name="name" required style="padding: 10px; font-size: 1rem; border-radius: 5px; border: 1px solid #ccc;">
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label for="email" style="font-weight: bold; margin-bottom: 5px;">Email</label>
+                        <input type="email" id="email" name="email" required style="padding: 10px; font-size: 1rem; border-radius: 5px; border: 1px solid #ccc;">
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label for="phone" style="font-weight: bold; margin-bottom: 5px;">Phone</label>
+                        <input type="tel" id="phone" name="phone" required style="padding: 10px; font-size: 1rem; border-radius: 5px; border: 1px solid #ccc;">
+                    </div>
+                    <button type="submit" style="padding: 15px; font-size: 1.2rem; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease;">Contact Now</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div style="padding: 80px 20px; text-align: center;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 40px;">Our Blog</h2>
+        <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+            <div style="width: 300px; background-color: #f9f9f9; padding: 20px; margin: 10px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: left;">
+                <h3 style="font-size: 1.5rem; margin-bottom: 15px;">Latest Tech Trends</h3>
+                <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 20px;">Stay updated with the latest trends in the world of electronics and gadgets.</p>
+                <a href="/Blog/TechTrends" style="font-size: 1rem; color: #007bff;">Read more</a>
+            </div>
+            <div style="width: 300px; background-color: #f9f9f9; padding: 20px; margin: 10px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: left;">
+                <h3 style="font-size: 1.5rem; margin-bottom: 15px;">Top 10 Gadgets of 2024</h3>
+                <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 20px;">Check out our top picks for the best gadgets to look out for in 2024.</p>
+                <a href="/Blog/TopGadgets2024" style="font-size: 1rem; color: #007bff;">Read more</a>
+            </div>
+            <div style="width: 300px; background-color: #f9f9f9; padding: 20px; margin: 10px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: left;">
+                <h3 style="font-size: 1.5rem; margin-bottom: 15px;">How to Choose the Right Smartphone</h3>
+                <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 20px;">A comprehensive guide to help you pick the perfect smartphone for your needs.</p>
+                <a href="/Blog/SmartphoneGuide" style="font-size: 1rem; color: #007bff;">Read more</a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    // Product display
+    @*<h1>Products in @ViewBag.CategoryName</h1>*@
+
+    if (ViewBag.ProductsData != null)
+    {
+        var productsData = Html.Raw(ViewBag.ProductsData);
+        <div id="productCards" class="product-cards-container"></div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function () {
+            var productsData = @Html.Raw(ViewBag.ProductsData);
+            var productCards = $('#productCards');
+
+            if (productsData.length > 0) {
+                productsData.forEach(function (product) {
+                var card = '';
+            if (product.Category_Name === "Television") {
+                card = `
+                <a href="/Products/Details?pid=${product.PID}">
+                    <div class="product-card">
+                        <img src="${product.path_to_image}/${product.BrandName.toLowerCase()}_${product.Television_Size}.jpg" alt="${product.BrandName} ${product.Television_Size}">
+                        <div class="product-info">
+                            <h3>${product.BrandName} - ${product.Television_Size}</h3>
+                            <p>Model Year: ${product.Model_Year}</p>
+                            <p>Type: ${product.Television_Type}</p>
+                            <p>Operating System: ${product.Television_OS}</p>
+                            <p>Price: $${product.Price}</p>
+                        </div>
+                    </div>
+                </a>`;
+            } else if (product.Category_Name === "Headset") {
+                card = `
+                <a href="/Products/Details?pid=${product.PID}">
+                    <div class="product-card">
+                        <img src="${product.path_to_image}/${product.BrandName.toLowerCase()}_headset.jpg" alt="${product.BrandName} Headset">
+                        <div class="product-info">
+                            <h3>${product.BrandName} - ${product.Headset_Type}</h3>
+                            <p>Model Year: ${product.Model_Year}</p>
+                            <p>Connectivity: ${product.Headset_Connectivity}</p>
+                           <p>Battery: ${product.Headset_Battery}</p>
+                            <p>Power Output: ${product.Headset_PowerOutput}</p>
+                            <p>Price: $${product.Price}</p>
+                        </div>
+                    </div>
+                </a>`;
+            } else if (product.Category_Name === "Refrigerator") {
+                card = `
+                <a href="/Products/Details?pid=${product.PID}">
+                    <div class="product-card">
+                        <img src="${product.path_to_image}/${product.BrandName.toLowerCase()}_refrigerator.jpg" alt="${product.BrandName} Refrigerator">
+                        <div class="product-info">
+                            <h3>${product.BrandName} - ${product.Refrigerator_Capacity} Capacity</h3>
+                            <p>Model Year: ${product.Model_Year}</p>
+                            <p>Type: ${product.Refrigerator_Type}</p>
+                            <p>Star Rating: ${product.Refrigerator_Star}</p>
+                            <p>Feature: ${product.Refrigerator_Feature}</p>
+                            <p>Price: $${product.Price}</p>
+                        </div>
+                    </div>
+                </a>`;
+            } else if (product.Category_Name === "Mobile") {
+                card = `
+                <a href="/Products/Details?pid=${product.PID}">
+                    <div class="product-card">
+                        <img src="${product.path_to_image}/${product.BrandName.toLowerCase()}_mobile.jpg" alt="${product.BrandName} Mobile">
+                        <div class="product-info">
+                            <h3>${product.BrandName} - ${product.Mobile_ScreenSize} Screen</h3>
+                            <p>Model Year: ${product.Model_Year}</p>
+                            <p>Storage: ${product.Mobile_Storage}</p>
+                            <p>Processor: ${product.Mobile_Processor}</p>
+                            <p>Battery: ${product.Mobile_Battery}</p>
+                            <p>Screen Type: ${product.Mobile_ScreenType}</p>
+                            <p>Price: $${product.Price}</p>
+                        </div>
+                    </div>
+                </a>`;
+            } else if (product.Category_Name === "Smartwatch") {
+                card = `
+                <a href="/Products/Details?pid=${product.PID}">
+                    <div class="product-card">
+                        <img src="${product.path_to_image}/${product.BrandName.toLowerCase()}_smartwatch.jpg" alt="${product.BrandName} Smartwatch">
+                        <div class="product-info">
+                            <h3>${product.BrandName} - ${product.Smartwatch_DisplaySize} Display</h3>
+                            <p>Model Year: ${product.Model_Year}</p>
+                            <p>Display Type: ${product.Smartwatch_DisplayType}</p>
+                            <p>Dial Shape: ${product.Smartwatch_DialShape}</p>
+                            <p>Price: $${product.Price}</p>
+                        </div>
+                    </div>
+                </a>`;
+            }
+            productCards.append(card);
+        });
+    } else {
+        productCards.append('<p>No products found.</p>');
+    }
+            });
+        </script>
+    }
+
+    else
+    {
+        <p>No data available for @ViewBag.CategoryName.</p>
+    }
+}

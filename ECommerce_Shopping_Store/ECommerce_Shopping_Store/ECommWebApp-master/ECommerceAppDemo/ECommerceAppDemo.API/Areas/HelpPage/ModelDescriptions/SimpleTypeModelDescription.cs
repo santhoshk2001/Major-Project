@@ -1,0 +1,6 @@
+namespace ECommerceAppDemo.API.Areas.HelpPage.ModelDescriptions
+{
+    public class SimpleTypeModelDescription : ModelDescription
+    {
+    }
+}

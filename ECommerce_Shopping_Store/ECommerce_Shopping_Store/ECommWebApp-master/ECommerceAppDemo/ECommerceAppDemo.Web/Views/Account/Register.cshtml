@@ -1,0 +1,150 @@
+﻿@model ECommerceAppDemo.API.Models.User
+
+
+@{ ViewBag.Title = "Register";
+    Layout = null; // If you want a full-page view without the standard layout. }
+}
+<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>@ViewBag.Title</title>
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+                <style>
+                    body {
+                        background: linear-gradient(to bottom right, #2c3e50, #3498db);
+                        margin: 0;
+                        height: 100vh;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+
+                    .container {
+                        display: flex;
+                        max-width: 1200px;
+                        width: 100%;
+                        height: 80vh;
+                        margin: auto;
+                    }
+
+                    .text-section, .form-section {
+                        flex: 1;
+                        padding: 40px;
+                        border-radius: 10px;
+                        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+                        margin: 10px;
+                    }
+
+                    .text-section {
+                        background: rgba(0, 0, 0, 0.5);
+                        color: white;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        text-align: center;
+                    }
+
+                    .form-section {
+                        background: rgba(255, 255, 255, 0.9);
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        text-align: center;
+                    }
+
+                    .form-group {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        margin-bottom: 10px; /* Reduced vertical spacing */
+                        width: 100%;
+                    }
+
+                        .form-group .form-control {
+                            flex: 1;
+                            margin: 5px; /* Reduced horizontal spacing */
+                        }
+
+                    .form-control {
+                        background: #fff;
+                        border: none;
+                        border-radius: 5px;
+                        padding: 15px;
+                    }
+
+                    .btn-primary {
+                        background-color: #3498db;
+                        border: none;
+                        border-radius: 5px;
+                        padding: 15px 20px;
+                        transition: background-color 0.3s ease;
+                        width: 100%;
+                    }
+
+                        .btn-primary:hover {
+                            background-color: #2980b9;
+                        }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="text-section">
+                        <div>
+                            <h1>Welcome!</h1>
+                            <p>Register today to gain access to exclusive features and start your journey with us.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2 class="text-dark">Register</h2>
+
+
+                        @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+                        {
+            @Html.AntiForgeryToken()
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.UName)
+                                @Html.TextBoxFor(m => m.UName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.UName)
+                            </div>
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.Email)
+                                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Email)
+                                            </div>
+
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(m => m.Password)
+                                                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(m => m.Password)
+                                                            </div>
+
+                                                                            <div class="form-group">
+                                                                                @Html.LabelFor(m => m.PhoneNumber)
+                                                                                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                                                                                @Html.ValidationMessageFor(m => m.PhoneNumber)
+                                                                            </div>
+
+                                                                                            <div class="form-group">
+                                                                                                @Html.LabelFor(m => m.Adress)
+                                                                                                @Html.TextBoxFor(m => m.Adress, new { @class = "form-control" })
+                                                                                                @Html.ValidationMessageFor(m => m.Adress)
+                                                                                            </div>
+
+                                                                                                            <div class="form-group">
+                                                                                                                @Html.LabelFor(m => m.Pincode)
+                                                                                                                @Html.TextBoxFor(m => m.Pincode, new { @class = "form-control" })
+                                                                                                                @Html.ValidationMessageFor(m => m.Pincode)
+                                                                                                            </div>
+
+                                                                                                                            <button type="submit" class="btn btn-primary">Register</button>}
+
+                    </div>
+                </div>
+            </body>
+        </html>

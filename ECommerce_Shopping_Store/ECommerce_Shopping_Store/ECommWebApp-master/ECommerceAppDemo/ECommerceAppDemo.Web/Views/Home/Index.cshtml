@@ -1,0 +1,41 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewBag.CategoryName Products</h1>
+
+<table id="productsTable" border="1">
+    <thead>
+        <tr id="tableHeader"></tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+</table>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var productsData = @Html.Raw(ViewBag.ProductsData);
+        var tableHeader = $('#tableHeader');
+        var tableBody = $('#tableBody');
+
+        if (productsData.length > 0) {
+            var columns = Object.keys(productsData[0]);
+
+            // Create table header
+            columns.forEach(function (column) {
+                tableHeader.append('<th>' + column + '</th>');
+            });
+
+            // Create table rows
+            productsData.forEach(function (product) {
+                var row = $('<tr></tr>');
+                columns.forEach(function (column) {
+                    row.append('<td>' + product[column] + '</td>');
+                });
+                tableBody.append(row);
+            });
+        } else {
+            tableBody.append('<tr><td colspan="100%">No products found.</td></tr>');
+        }
+    });
+</script>

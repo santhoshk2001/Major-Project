@@ -1,0 +1,145 @@
+﻿@model List<ECommerceAppDemo.API.Models.Cart>
+
+@{
+    Layout = null; // You can set a layout or keep it null if you want a standalone page
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            color: #353432;
+            padding: 20px;
+        }
+
+        .invoice-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #353432;
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f5f5f5;
+            color: #353432;
+        }
+
+        tfoot td {
+            font-weight: bold;
+        }
+
+        .subtotal {
+            text-align: right;
+        }
+
+        .total-words {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .copyright {
+            font-size: 12px;
+            margin-top: 20px;
+            text-align: center;
+            color: #888;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   
+</head>
+<body>
+    <div class="invoice-container">
+        <h2>Tax Invoice / Bill of Supply / Cash Memo</h2>
+        <p><strong>Name:</strong> @Model.First().UName</p>
+        <p><strong>Phone Number:</strong> @Model.First().PhoneNumber</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Brand</th>
+                    <th>Model Year</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int productCounter = 1; // Initialize the product counter }
+ 
+                }
+ 
+ 
+                @foreach (var item in Model)
+ 
+                {
+ 
+ 
+    <tr>
+<td>Product @productCounter</td> <!-- Display the product number -->
+<td>@item.BrandName</td>
+<td>@item.Model_Year</td>
+<td>@item.Quantity</td>
+<td>@item.Price.ToString("C")</td>
+</tr>productCounter++; // Increment the product counter
+ 
+                }
+ 
+ 
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="subtotal">Total Amount:</td>
+                    <td>@Model.Sum(item => item.Price * item.Quantity).ToString("C")</td>
+                </tr>
+            </tfoot>
+        </table>
+        @*<p class="total-words">
+            Amount in words:
+            @Html.Raw(Convert.ToDecimal(Model.Sum(item => item.Price * item.Quantity)).ToWords())
+            Only
+        </p>*@ <!-- Convert the total amount to words using a helper method -->
+    </div>
+    <div class="copyright">
+        <p>&copy; 2024 Your Company. All rights reserved.</p>
+    </div>
+     <script>
+        // Trigger the invoice download after the page loads
+        window.onload = function() {
+            setTimeout(function() {
+                window.location.href = '@Url.Action("ClearCart", "Cart")';
+            }, 7000); // Adjust the delay as needed
+        }
+    </script>
+</body>
+</html>

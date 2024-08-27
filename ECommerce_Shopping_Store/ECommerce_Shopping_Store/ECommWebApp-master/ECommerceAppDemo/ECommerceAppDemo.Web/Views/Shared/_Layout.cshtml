@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/site.css")" />
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="left">
+                <a href="@Url.Action("Index")">
+                    <img src="https://m.media-amazon.com/images/I/71K0Zl4P25L._AC_SL1001_.jpg" alt="Site Logo">
+                </a>
+                <ul>
+                    @foreach (var category in ViewBag.Categories ?? new List<string>())
+                    {
+        <li class="@category.ToLower()">
+            <a href="@Url.Action("Index", "Products", new { categoryName = category })">@category</a>
+        </li>
+}
+                </ul>
+            </div>
+            <div class="right">
+                <form id="categorySearch" method="get" action="@Url.Action("Index", "Products")">
+                    <input type="text" name="categoryName" placeholder="Search for a category...">
+                    <button type="submit">Search</button>
+                </form>
+                <div class="icons">
+                    <ul class="nav">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                <li>Hello, @Session["UserName"]!</li>
+                                <li>
+                                    @using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { @class = "navbar-form" }))
+                                    {
+                    @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-primary">Logout</button>}
+                                </li> }
+                                            else
+                                            {
+                                <li>@Html.ActionLink("Login", "Login", "Account")</li>}
+                    </ul>
+                    <button class="bag" id="cartButton">Bag</button>
+                    <button class="dark-mode-toggle" id="toggleDarkMode">🌓</button>
+                </div>
+            </div>
+        </nav>
+
+    </header>
+
+    @*<button id="cartButton">View Cart</button>*@
+    <div id="cartContainer"></div>
+
+    <script>
+        $(document).ready(function () {
+            // Attach click event to the Bag button
+            $("#cartButton").click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/Cart/Index",
+                    success: function (data) {
+                        // Render the View in the div with an ID of "cartContainer"
+                        $("#cartContainer").html(data);
+                    },
+                    error: function (xhr, status, error) {
+                        alert("An error occurred while loading the cart: " + error);
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    <main role="main" class="container">
+        @RenderBody()
+    </main>
+    <footer>
+        <div class="footer-container">
+            <div class="row">
+                <div class="online-shopping">
+                    <span class="content-heading">ONLINE SHOPPING</span>
+                    <div class="content-box">
+                        <br>
+                        Televisions
+                        <br>
+                        Refrigerators
+                        <br>
+                        Smartwatches
+                        <br>
+                        Headphones
+                        <br>
+                        Mobile Phones
+                        <br>
+                        Laptops
+                        <br>
+                        Home Appliances
+                    </div>
+                    <br>
+                    <span class="content-heading">USEFUL LINKS</span>
+                    <div class="content-box">
+                        <br>
+                        Blog
+                        <br>
+                        Careers
+                        <br>
+                        Site Map
+                        <br>
+                        Corporate Information
+                        <br>
+                        Warranty Information
+                    </div>
+                </div>
+                <div class="customer-policies">
+                    <span class="content-heading">CUSTOMER POLICIES</span>
+                    <div class="content-box">
+                        <br>
+                        Contact Us
+                        <br>
+                        FAQ
+                        <br>
+                        T&C
+                        <br>
+                        Terms Of Use
+                        <br>
+                        Track Orders
+                        <br>
+                        Shipping
+                        <br>
+                        Cancellation
+                        <br>
+                        Returns
+                        <br>
+                        Privacy Policy
+                        <br>
+                        Grievance Officer
+                    </div>
+                </div>
+                <div class="app">
+                    <span class="content-heading">EXPERIENCE OUR APP ON MOBILE</span>
+                    <div class="download-button">
+                        <div class="Google-play">
+                            <img src="https://raw.githubusercontent.com/ZeroOctave/ZeroOctave-Javascript-Projects/main/assets/Images/google-play.png" alt="google play">
+                        </div>
+                        <div class="App-Store">
+                            <img src="https://raw.githubusercontent.com/ZeroOctave/ZeroOctave-Javascript-Projects/main/assets/Images/app-store.png" alt="app store">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="links-container">
+                        <span class="content-heading">KEEP IN TOUCH</span>
+                        <div class="social-links">
+                            <span class="fb-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                                    <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                                </svg>
+                            </span>
+                            <span class="tw-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-twitter" viewBox="0 0 16 16">
+                                    <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
+                                </svg>
+                            </span>
+                            <span class="yt-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
+                                    <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z" />
+                                </svg>
+                            </span>
+                            <span class="ig-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                                    <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923 3.927 3.927 0 0 0 .924-1.416c.197-.51.332-1.09.371-1.942.04-.852.048-1.124.048-3.297s-.01-2.444-.048-3.297c-.04-.851-.174-1.434-.371-1.942a3.927 3.927 0 0 0-.924-1.417 3.918 3.918 0 0 0-1.416-.923c-.51-.198-1.092-.333-1.943-.372C10.444.01 10.172 0 8 0zm0 1.459c2.138 0 2.39.008 3.233.046.78.037 1.204.166 1.487.276.374.145.641.318.922.598.28.281.453.548.598.922.11.283.24.708.276 1.487.038.843.046 1.095.046 3.233s-.008 2.39-.046 3.233c-.037.78-.166 1.204-.276 1.487a2.465 2.465 0 0 1-.598.922 2.468 2.468 0 0 1-.922.598c-.283.11-.707.24-1.487.276-.843.038-1.095.046-3.233.046s-2.39-.008-3.233-.046c-.78-.037-1.204-.166-1.487-.276a2.47 2.47 0 0 1-.922-.598 2.468 2.468 0 0 1-.598-.922c-.11-.283-.24-.707-.276-1.487-.038-.843-.046-1.095-.046-3.233s.008-2.39.046-3.233c.037-.78.166-1.204.276-1.487.145-.374.318-.641.598-.922.281-.28.548-.453.922-.598.283-.11.707-.24 1.487-.276.843-.038 1.095-.046 3.233-.046zM8 3.888A4.114 4.114 0 0 0 3.888 8 4.114 4.114 0 0 0 8 12.112 4.114 4.114 0 0 0 12.112 8 4.114 4.114 0 0 0 8 3.888zm0 6.781A2.667 2.667 0 1 1 8 5.334a2.667 2.667 0 0 1 0 5.334zm5.205-6.94a.96.96 0 1 1-1.92 0 .96.96 0 0 1 1.92 0z" />
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="customer-satisfaction">
+                        <strong class="original"> 100% ORIGINAL</strong> guarantee <br>
+                        for all products at cybershopee.com
+                    </div>
+                    <div>
+                        <strong class="original">Return within 30days </strong>of <br>
+                        receiving your order
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/Scripts/toggleButton.js"></script>
+    <script>
+        // Add event listener to the cart button
+        document.getElementById("cartButton").addEventListener("click", function () {
+            // Redirect to the cart page
+            window.location.href = "https://localhost:44347/cart/index";
+        });
+    
+   
+    document.getElementById('categorySearch').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var input = this.querySelector('input[name="categoryName"]');
+        var category = input.value.trim().toLowerCase();
+
+        // List of valid categories
+        var validCategories = ['refrigerator', 'television', 'headset', 'mobile', 'smartwatch'];
+
+        if (validCategories.includes(category)) {
+            // Capitalize the first letter for the URL
+            var capitalizedCategory = category.charAt(0).toUpperCase() + category.slice(1);
+            window.location.href = '@Url.Action("Index", "Products")' + '?categoryName=' + encodeURIComponent(capitalizedCategory);
+        } else {
+            alert('Please enter a valid category: Refrigerator, Television, Headset, Mobile, or Smartwatch');
+            input.value = ''; // Clear the input
+        }
+    });
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

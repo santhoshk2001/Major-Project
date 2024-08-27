@@ -1,0 +1,104 @@
+﻿
+@model List<ECommerceAppDemo.API.Models.Cart>
+
+<div id="cartContainer" style="text-align: center; margin: 50px auto; max-width: 800px; padding: 20px; background-color: #FFFFFF; border-radius: 15px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);">
+    <h2 style="font-family: 'Poppins', sans-serif; font-size: 28px; color: #353432; margin-bottom: 20px;">Shopping Cart</h2>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 20px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+        <div style="text-align: right;">
+            <img src="https://m.media-amazon.com/images/I/71K0Zl4P25L._AC_SL1001_.jpg" alt="Site Logo" style="height: 80px; width: auto; border-radius: 10px; transform: rotate(-3deg); transition: transform 0.3s;">
+        </div>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <table style="width: 100%; margin: 20px 0; border-collapse: collapse; animation: fadeInUp 0.5s ease-out;">
+            <thead>
+                <tr style="background-color: #EEEEE6;">
+                    <th style="padding: 12px; border-bottom: 2px solid #ddd; font-family: 'Poppins', sans-serif;">Product</th>
+                    <th style="padding: 12px; border-bottom: 2px solid #ddd; font-family: 'Poppins', sans-serif;">Quantity</th>
+                    <th style="padding: 12px; border-bottom: 2px solid #ddd; font-family: 'Poppins', sans-serif;">Price</th>
+                    <th style="padding: 12px; border-bottom: 2px solid #ddd; font-family: 'Poppins', sans-serif;">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr style="background-color: #f9f9f9; transform: translateY(10px); transition: transform 0.3s;">
+                        <td style="padding: 10px; border-bottom: 1px solid #ddd;">@item.BrandName @item.Model_Year</td>
+                        <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                            @{ var uniqueId = Guid.NewGuid().ToString(); }
+                            <select id="@uniqueId" onchange="updateQuantity('@item.CartId', this.value)">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <option value="@i" @(item.Quantity == i ? "selected" : "")>@i</option>
+                                }
+                            </select>
+                        </td>
+                        <td style="padding: 10px; border-bottom: 1px solid #ddd;">@(item.Price.ToString("C"))</td>
+                        <td style="padding: 10px; border-bottom: 1px solid #ddd;">@((item.Quantity * item.Price).ToString("C"))</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" style="padding: 12px; border-top: 2px solid #ddd; text-align: right; font-family: 'Poppins', sans-serif;">Total:</td>
+                    <td style="padding: 12px; border-top: 2px solid #ddd; font-family: 'Poppins', sans-serif;"> @(Model.Sum(i => i.Quantity * i.Price).ToString("C"))</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div>
+            <button onclick="location.href='@Url.Action("ThankYou", "Cart")'">Checkout</button>
+            <button onclick="clearCart()">Clear Cart</button>
+        </div>
+
+        <div>
+            <h3>User Information:</h3>
+            <p>Name: @Model.First().UName</p>
+            <p>Phone Number: @Model.First().PhoneNumber</p>
+            <p>Address: @Model.First().Adress, @Model.First().Pincode</p>
+        </div>
+    }
+    else
+    {
+        <p>Your cart is empty.</p>
+    }
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function updateQuantity(cartId, quantity) {
+            $.ajax({
+                url: 'https://localhost:44368/api/cart/update', // API endpoint to update cart quantity
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify({ CartId: parseInt(cartId), Quantity: parseInt(quantity) }),
+                success: function (result) {
+                    location.reload(); // Refresh the page after successful update
+                },
+                error: function (error) {
+                    console.log('Error updating quantity:', error);
+                }
+            });
+        }
+
+        function clearCart() {
+            $.ajax({
+                url: 'https://localhost:44368/api/cart/clear',
+                type: 'DELETE',
+                contentType: 'application/json',
+                success: function (result) {
+                    console.log('Cart cleared successfully');
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error clearing cart:', error);
+                    console.log('Status:', status);
+                    console.log('Response:', xhr.responseText);
+                }
+            });
+        }
+    </script>
+}

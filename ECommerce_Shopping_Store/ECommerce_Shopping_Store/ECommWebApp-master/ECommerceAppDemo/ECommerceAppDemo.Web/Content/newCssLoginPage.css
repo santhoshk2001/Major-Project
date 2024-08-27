@@ -1,0 +1,113 @@
+﻿
+/*The CSs form login page*/
+body {
+    background: linear-gradient(to bottom right, #2c3e50, #3498db);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin: 0;
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    animation: slideDown 1s ease-in-out;
+    max-width: 400px;
+    width: 100%;
+}
+
+/* CSS keyframes should be placed within a <style> tag, and @ should be used correctly. */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-control {
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 10px;
+}
+
+.btn-primary {
+    background-color: #3498db;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+    }
+
+.background-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.circle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: animateCircle 15s linear infinite;
+}
+
+@keyframes animateCircle {
+    0% {
+        transform: scale(0) translate(-50%, -50%);
+    }
+
+    100% {
+        transform: scale(1) translate(-50%, -50%);
+    }
+}
+
+/* Create random circles */
+.circle:nth-child(1) {
+    width: 150px;
+    height: 150px;
+    top: 20%;
+    left: 25%;
+    animation-duration: 20s;
+    animation-delay: 0s;
+}
+
+.circle:nth-child(2) {
+    width: 200px;
+    height: 200px;
+    top: 70%;
+    left: 60%;
+    animation-duration: 25s;
+    animation-delay: -5s;
+}
+
+.circle:nth-child(3) {
+    width: 100px;
+    height: 100px;
+    top: 50%;
+    left: 80%;
+    animation-duration: 18s;
+    animation-delay: -3s;
+}

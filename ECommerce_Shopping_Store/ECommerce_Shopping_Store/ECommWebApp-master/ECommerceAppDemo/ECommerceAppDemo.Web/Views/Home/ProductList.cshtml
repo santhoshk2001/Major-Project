@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "ProductList";
+}
+
+<h2>ProductList</h2>
+
+@model IEnumerable<TelevisionProduct> < !--Update model type for other categories -->
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Brand</th>
+            <th>Model Year</th>
+            <th>Price</th>
+            <th>Size</th>
+            <th>Type</th>
+            <th>Operating System</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.BrandName</td>
+                <td>@item.Model_Year</td>
+                <td>@item.Price</td>
+                <td>@item.Television_Size</td>
+                <td>@item.Television_Type</td>
+                <td>@item.Television_OS</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
